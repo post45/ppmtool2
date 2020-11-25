@@ -11,7 +11,7 @@ class ProjectItem extends Component {
             </div>
             <div className="col-lg-6 col-md-4 col-8">
               <h3>Spring / React Project</h3>
-              <p>Project to create a Arthur Board with Spring Boot and React</p>
+              <p>Project to create a Kanban Board with Spring Boot and React</p>
             </div>
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group">
