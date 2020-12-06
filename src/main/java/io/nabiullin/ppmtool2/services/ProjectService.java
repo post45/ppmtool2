@@ -2,23 +2,30 @@ package io.nabiullin.ppmtool2.services;
 
 import io.nabiullin.ppmtool2.domain.Backlog;
 import io.nabiullin.ppmtool2.domain.Project;
+import io.nabiullin.ppmtool2.domain.User;
 import io.nabiullin.ppmtool2.exceptions.ProjectIdException;
 import io.nabiullin.ppmtool2.repositories.BacklogRepository;
 import io.nabiullin.ppmtool2.repositories.ProjectRepository;
+import io.nabiullin.ppmtool2.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProjectService {
-
     @Autowired
     private ProjectRepository projectRepository;
 
     @Autowired
     private BacklogRepository backlogRepository;
 
-    public Project saveOrUpdateProject(Project project){
+    @Autowired
+    private UserRepository userRepository;
+
+    public Project saveOrUpdateProject(Project project, String username){
         try{
+            User user = userRepository.findByUsername(username);
+            project.setUser(user);
+            project.setProjectLeader(user.getUsername());
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
 
             if(project.getId()==null){
@@ -42,6 +49,8 @@ public class ProjectService {
 
 
     public Project findProjectByIdentifier(String projectId){
+
+        //Only want to return the project if the user looking for it is the owner
 
         Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
