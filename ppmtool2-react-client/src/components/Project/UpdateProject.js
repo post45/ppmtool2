@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 
 class UpdateProject extends Component {
-  //set state
   constructor() {
     super();
 
